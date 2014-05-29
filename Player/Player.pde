@@ -1,8 +1,9 @@
 class Player{
-  void setup(){
-    
-  }
-  void draw(){
-      
-  }
+ void setup(){
+  
+ }
+ void draw(){
+  
+ } 
 }
+
