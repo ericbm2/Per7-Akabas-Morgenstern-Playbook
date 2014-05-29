@@ -1,6 +1,6 @@
 class Player{
  
- ArrayList<Coordinates> coordinates;
+ ArrayList<Coordinate> coordinates;
  String position;
  
  Player(String s, int x, int y){
