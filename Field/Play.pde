@@ -1,16 +1,16 @@
 class Play{
 
-  Players[] players;
+  Player[] players;
   String formation;
   String name;
    
-  public Play(String name){
-    players = new Players[11];
+  Play(String name){
+    players = new Player[11];
     formation = "Shotgun";
     this.name = name;
   }
   
-  public setup(){}
-  public draw(){}
+  void setup(){}
+  void draw(){}
   
 }
