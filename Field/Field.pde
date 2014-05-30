@@ -1,8 +1,11 @@
+boolean isEditing = false;
+boolean isPlaying = false;
+
 void setup(){
  size(1350,700);
  stroke(255);
  strokeWeight(3);
- background(0,200,0); 
+ background(0,200,0);
 }
 void draw(){
   stroke(255);
@@ -86,7 +89,17 @@ void draw(){
   line(1200,95,1250,95);
   line(1200,80,1250,80);
   line(1200,65,1250,65);
-  Ball b = new Ball(1250/2,500);
+  
+  Ball b = new Ball(675,500);
   b.setup();
-  b.draw(1250/2,500);
+  b.draw(675,500);
+  
+  for (int i = 0 ; i < 11 ; i++){
+    p.getPlayers[i].drawit();
+    if (isPlaying){
+      p.getPlayers[i].run();
+    }
+  }
+  
 }
+
