@@ -1,11 +1,13 @@
 boolean isEditing = false;
 boolean isPlaying = false;
+Play p;
 
 void setup(){
  size(1350,700);
  stroke(255);
  strokeWeight(3);
  background(0,200,0);
+ p = new Play("First play","shotgun");
 }
 void draw(){
   stroke(255);
@@ -94,12 +96,10 @@ void draw(){
   b.setup();
   b.draw(675,500);
   
-  for (int i = 0 ; i < 11 ; i++){
-    p.getPlayers[i].drawit();
-    if (isPlaying){
-      p.getPlayers[i].run();
-    }
+  p.draw();
+  if (isPlaying){
+    p.run();
   }
   
-}
+  }
 
