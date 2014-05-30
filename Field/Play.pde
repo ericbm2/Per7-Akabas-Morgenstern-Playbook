@@ -8,18 +8,18 @@ class Play{
     players = new Player[11];
     this.formation = formation;
     this.name = name;
-    players[0] = new Player("LT",625,505);
-    players[1] = new Player("LG",650,505);
-    players[2] = new Player("C",675,505);
-    players[3] = new Player("RG",700,505);
-    players[4] = new Player("RT",725,505);
+    players[0] = new Player("LT",375,505);
+    players[1] = new Player("LG",400,505);
+    players[2] = new Player("C",425,505);
+    players[3] = new Player("RG",450,505);
+    players[4] = new Player("RT",475,505);
     if (formation == "shotgun"){
-        players[5] = new Player("QB",675,575);
-        players[6] = new Player("RB",725,575);
-        players[7] = new Player("TE",775,505);
-        players[8] = new Player("WR1",250,505);
-        players[9] = new Player("WR2",400,505);
-        players[10] = new Player("WR3",1110,505);
+        players[5] = new Player("QB",425,575);
+        players[6] = new Player("RB",385,575);
+        players[7] = new Player("TE",510,505);
+        players[8] = new Player("WR1",150,505);
+        players[9] = new Player("WR3",250,525);
+        players[10] = new Player("WR2",700,525);
     }
   }
   

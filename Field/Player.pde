@@ -7,7 +7,7 @@ class Player{
  
  Player(String s, int x, int y){
   position = s; 
-  coordinates.add(new Coordinate(x,y));
+  //coordinates.add(new Coordinate(x,y));
   xpos = x;
   ypos = y;
  }
@@ -16,6 +16,8 @@ class Player{
  }
  
  void draw(){
+     stroke(255,0,0);
+     fill(255,0,0);
      ellipse(xpos,ypos,12,12);
  }
  
