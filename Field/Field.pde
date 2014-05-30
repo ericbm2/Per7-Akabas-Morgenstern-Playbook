@@ -5,6 +5,7 @@ void setup(){
  background(0,200,0); 
 }
 void draw(){
+  stroke(255);
   line(50,50,50,650);
   line(1300,50,1300,650);
   line(50,50,1300,50);
@@ -85,4 +86,7 @@ void draw(){
   line(1200,95,1250,95);
   line(1200,80,1250,80);
   line(1200,65,1250,65);
+  Ball b = new Ball(1250/2,500);
+  b.setup();
+  b.draw(1250/2,500);
 }
