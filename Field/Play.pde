@@ -16,9 +16,17 @@ class Play{
     if (formation == "shotgun"){
         players[5] = new Player("QB",425,575);
         players[6] = new Player("RB",385,575);
-        players[7] = new Player("TE",510,505);
-        players[8] = new Player("WR1",150,505);
-        players[9] = new Player("WR3",250,525);
+        players[7] = new Player("WR3",250,525);
+        players[8] = new Player("TE",510,505);
+        players[9] = new Player("WR1",150,505);
+        players[10] = new Player("WR2",700,525);
+    }
+    if(formation=="I-Form"){
+        players[5] = new Player("QB",425,515);
+        players[6] = new Player("RB",425,595);
+        players[7] = new Player("FB",425,550);
+        players[8] = new Player("TE",510,505);
+        players[9] = new Player("WR1",150,505);
         players[10] = new Player("WR2",700,525);
     }
   }
