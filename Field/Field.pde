@@ -7,7 +7,7 @@ void setup(){
  stroke(255);
  strokeWeight(3);
  background(0,200,0);
- p = new Play("First play","I-Form");
+ p = new Play("First play","shotgun-right");
 }
 void draw(){
   stroke(255);
