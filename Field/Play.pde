@@ -133,6 +133,38 @@ class Play{
         players[9] = new Player("TE2",350,505);
         players[10] = new Player("TE3",500,505);
     }
+    if(formation=="singleback-spread"){
+        players[5] = new Player("QB",425,515);
+        players[6] = new Player("RB1",425,595);
+        players[7] = new Player("WR3",250,525);
+        players[8] = new Player("WR4",600,525);
+        players[9] = new Player("WR1",150,505);
+        players[10] = new Player("WR2",700,505);
+    }
+    if(formation=="split-right"){
+        players[5] = new Player("QB",425,515);
+        players[6] = new Player("RB1",385,575);
+        players[7] = new Player("RB2",465,575);
+        players[8] = new Player("TE1",510,505);
+        players[9] = new Player("WR1",150,505);
+        players[10] = new Player("WR2",700,525);
+    }
+    if(formation=="split-left"){
+        players[5] = new Player("QB",425,515);
+        players[6] = new Player("RB1",385,575);
+        players[7] = new Player("RB2",465,575);
+        players[8] = new Player("TE1",340,505);
+        players[9] = new Player("WR1",150,525);
+        players[10] = new Player("WR2",700,505);
+    }
+    if(formation=="fullhouse"){
+        players[5] = new Player("QB",425,515);
+        players[6] = new Player("RB1",425,595);
+        players[7] = new Player("FB1",380,550);
+        players[8] = new Player("FB2",470,550);
+        players[9] = new Player("WR1",150,505);
+        players[10] = new Player("WR2",700,505);
+    }
   }
   
   Player[] getPlayers(){
