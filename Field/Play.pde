@@ -3,6 +3,8 @@ class Play{
   Player[] players;
   String formation;
   String name;
+  boolean isEditing, isPlaying, locked;
+  int selected;
    
   Play(String name, String formation){
     players = new Player[11];
@@ -165,7 +167,46 @@ class Play{
         players[9] = new Player("WR1",150,505);
         players[10] = new Player("WR2",700,505);
     }
+    selected = 11;
+    isEditing = false;
+    isPlaying = false;
   }
+  
+  
+  boolean isEditing(){
+      return isEditing;
+  }
+  
+  boolean isPlaying(){
+      return isPlaying;
+  }
+
+  void Pressed() {
+      for (int i = 0 ; i < 11 ; i++){
+          if (((players[i].getX() - mouseX)*(players[i].getX() - mouseX) + (players[i].getY() - mouseY)*(players[i].getY() - mouseY)) <= 144){
+               selected = i;
+               print(i);
+          }
+       }
+  }
+
+  void Dragged() {
+      if (selected != 11){
+        players[selected].setX(mouseX); 
+        players[selected].setY(mouseY); 
+      }
+  }
+
+  void Released() {
+      if (selected != 11){
+           players[selected].addco((int)(mouseX),(int)(mouseY));
+           int posi = players[selected].arraypos();
+           line (players[selected].getXco(posi), players[selected].getYco(posi), players[selected].getXco(posi+1), players[selected].getYco(posi+1));
+           players[selected].increment();
+      }
+      selected = 11;
+  }
+  
   
   Player[] getPlayers(){
     return players;
