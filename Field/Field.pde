@@ -1,5 +1,4 @@
-boolean isEditing = false;
-boolean isPlaying = false;
+boolean locked;
 Play p;
 
 void setup(){
@@ -9,6 +8,7 @@ void setup(){
  background(0,200,0);
  p = new Play("First play","shotgun-right");
 }
+
 void draw(){
   stroke(255);
   line(50,50,50,650);
@@ -96,10 +96,24 @@ void draw(){
   b.setup();
   b.draw(425,500);
   
-  p.draw();
-  if (isPlaying){
+  if (p.isPlaying()){
     p.run();
   }
   
+  if (mousePressed && !(locked)){
+      p.Pressed();
+      locked = true;
   }
+  else if (mousePressed && locked){
+      p.Dragged();
+  }
+  else if (locked && !(mousePressed)){
+      p.Released();
+      locked = false;
+  }
+  else {
+      p.draw();
+  }
+
+}
 
