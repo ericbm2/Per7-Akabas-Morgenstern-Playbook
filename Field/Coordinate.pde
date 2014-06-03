@@ -1,29 +1,29 @@
 class Coordinate{
 
-  double x,y;
+  int x,y;
   
-  Coordinate(double a, double b){
+  Coordinate(int a, int b){
     x = a;
     y = b;
   }
   
-  double getY(){
+  int getY(){
     return y;
   }
   
-  double getX(){
+  int getX(){
     return x;
   }
   
-  void setY(double a){
+  void setY(int a){
     y = a;
   }
     
-  void setX(double b){
+  void setX(int b){
     x = b;
   }
   
-  void setXY(double a, double b){
+  void setXY(int a, int b){
     x = a;
     y = b;
   }
@@ -32,4 +32,3 @@ class Coordinate{
   void draw(){}
   
 }
-  
