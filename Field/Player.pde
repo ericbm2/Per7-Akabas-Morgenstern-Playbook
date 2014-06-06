@@ -4,7 +4,7 @@ class Player{
  String position;
  int xpos;
  int ypos;
- int pred,pgreen,pblue;
+ int pred,pgreen,pblue,step;
  
  
  Player(String s, int x, int y){
@@ -16,9 +16,14 @@ class Player{
   pred = 117;
   pgreen = 0;
   pblue = 94;
+  int step=0;
  }
  
  void run(){
+   if(step>=(coordinates.size())){
+      return; 
+   }
+   coordinates.get(0).getX();
  }
  
 

@@ -3,7 +3,7 @@ class Play{
   Player[] players;
   String formation;
   String name;
-  boolean isEditing, isPlaying, locked;
+  boolean isEditing, isPlaying, locked, isDone;
   int selected;
    
   Play(String name){
@@ -13,6 +13,7 @@ class Play{
     selected = 11;
     isEditing = true;
     isPlaying = false;
+    isDone=false;
   }
   
   void setFormation(String formation){
@@ -220,7 +221,18 @@ class Play{
   
   
   void setup(){}
-   
+  
+  boolean doIPlayNow(){
+     if(key==ENTER){
+        isPlaying=true;
+        isEditing=false;
+        return true;
+     }
+     isPlaying=false;
+     isEditing=true;
+     return false;
+  } 
+  
   void draw(){
     for (int i = 0 ; i < 11 ; i++){
       if (isPlaying){
@@ -235,6 +247,9 @@ class Play{
   void run(){
     for (int i = 0 ; i < 11 ; i++){
       players[i].run();
+    }
+    if(!isDone){
+        run();
     }
   }
   

@@ -27,8 +27,9 @@ void intro(){
     text("put instructions here.....", 350,370);
 
     text("press b to begin", 350,390);
-
+    
     if (keyPressed && key == 'b') {
+      
       isIntro = false;
       background(0,200,0);
       isMenu = true;
@@ -144,7 +145,7 @@ void draw(){
   b.setup();
   b.draw(425,500);
   
-  if (p.isPlaying()){
+  if (p.doIPlayNow()){
     p.run();
   }
   
