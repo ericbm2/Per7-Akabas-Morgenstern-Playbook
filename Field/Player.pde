@@ -4,7 +4,7 @@ class Player{
  String position;
  int xpos;
  int ypos;
- int arraypos;
+ int pred,pgreen,pblue;
  
  
  Player(String s, int x, int y){
@@ -13,17 +13,18 @@ class Player{
   coordinates.add(new Coordinate(x,y));
   xpos = x;
   ypos = y;
+  pred = 117;
+  pgreen = 0;
+  pblue = 94;
  }
  
  void run(){
  }
  
- void increment(){
-     arraypos++;    
- }
+
  
- int arraypos(){
-     return arraypos;
+ int sized(){
+     return coordinates.size();
  }
  
  int getX(){
@@ -32,6 +33,12 @@ class Player{
  
  int getY(){
      return ypos;
+ }
+ 
+ void setColor(int r, int g, int b){
+   pred = r;
+   pgreen = g;
+   pblue = b;
  }
  
  void setX(int x){
@@ -55,9 +62,16 @@ class Player{
  }
  
  void draw(){
-     stroke(255,0,0);
-     fill(255,0,0);
+     stroke(117,0,94);
+     fill(pred,pgreen,pblue);
      ellipse(xpos,ypos,12,12);
+ }
+ 
+ void drawEditing(){
+     draw();
+     for (int i = 1 ; i < coordinates.size() ; i++){
+          line(coordinates.get(i-1).getX(), coordinates.get(i-1).getY(), coordinates.get(i).getX(), coordinates.get(i).getY());
+     }
  }
  
  void setup(){
