@@ -1,4 +1,6 @@
 boolean locked;
+boolean isIntro = true;
+boolean isMenu = false;
 Play p;
 
 void setup(){
@@ -6,7 +8,53 @@ void setup(){
  stroke(255);
  strokeWeight(3);
  background(0,200,0);
- p = new Play("First play","shotgun-right");
+ p = new Play("First play");
+ p.setFormation("shotgun-right");
+}
+
+void intro(){
+    color c = color(0,0,0);
+    fill(c);
+    noStroke();
+    rect(305,205,250,250);
+    c = color(230,230,230);
+    fill(c);
+    noStroke();
+    rect(300,200,250,250);
+    c = color(0,0,0);
+    fill(c);
+    text("this is the intro", 350,350);
+    text("put instructions here.....", 350,370);
+
+    text("press b to begin", 350,390);
+
+    if (keyPressed && key == 'b') {
+      isIntro = false;
+      background(0,200,0);
+      isMenu = true;
+    }
+}
+
+void menu(){
+  color c = color(0,0,0);
+  fill(c);
+  noStroke();
+  rect(205,155,400,400);
+  c = color(100,100,100);
+  fill(c);
+  noStroke();
+  rect(200,150,400,400);
+  c = color(0,0,0);
+  fill(c);
+  text("this is the menu", 300,300);
+  text("Press h for shotgun", 300, 320);
+  if (keyPressed && key == 'h') {
+      isIntro = false;
+      isMenu = false;
+      p.setFormation("shotgun-right");
+      background(0,200,0);    
+  }
+
 }
 
 void draw(){
@@ -113,6 +161,14 @@ void draw(){
   }
   else {
       p.draw();
+  }
+  
+  if (isIntro){
+      intro();
+  }
+  
+  if (isMenu){
+      menu();
   }
 
 }
