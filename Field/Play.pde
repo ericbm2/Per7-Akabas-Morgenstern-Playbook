@@ -13,8 +13,8 @@ class Play{
     selected = 11;
     isEditing = true;
     isPlaying = false;
-    isDone=false;
   }
+  
   
   void setFormation(String formation){
     players[0] = new Player("LT",375,505);
@@ -39,7 +39,7 @@ class Play{
         players[10] = new Player("WR2",700,505);
     }
     if(formation=="iform-right"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",425,550);
         players[8] = new Player("TE1",510,505);
@@ -47,7 +47,7 @@ class Play{
         players[10] = new Player("WR2",700,525);
     }
     if(formation=="iform-left"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",425,550);
         players[8] = new Player("TE1",340,505);
@@ -55,7 +55,7 @@ class Play{
         players[10] = new Player("WR2",700,505);
     }
     if(formation=="singleback"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("TE2",510,505);
         players[8] = new Player("TE1",340,505);
@@ -79,7 +79,7 @@ class Play{
         players[10] = new Player("WR2",700,505);
     }
     if(formation=="strong-i"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",465,550);
         players[8] = new Player("TE1",510,505);
@@ -87,7 +87,7 @@ class Play{
         players[10] = new Player("WR2",700,525);
     }
     if(formation=="weak-i"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",385,550);
         players[8] = new Player("TE1",510,505);
@@ -127,7 +127,7 @@ class Play{
         players[10] = new Player("WR2",720,505);
     }
     if(formation=="goalline-right"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",425,550);
         players[8] = new Player("TE1",350,505);
@@ -135,7 +135,7 @@ class Play{
         players[10] = new Player("TE3",525,525);
     }
     if(formation=="goalline-left"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("FB1",425,550);
         players[8] = new Player("TE1",325,525);
@@ -143,7 +143,7 @@ class Play{
         players[10] = new Player("TE3",500,505);
     }
     if(formation=="singleback-spread"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",425,595);
         players[7] = new Player("WR3",250,525);
         players[8] = new Player("WR4",600,525);
@@ -151,7 +151,7 @@ class Play{
         players[10] = new Player("WR2",700,505);
     }
     if(formation=="split-right"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",385,575);
         players[7] = new Player("RB2",465,575);
         players[8] = new Player("TE1",510,505);
@@ -159,7 +159,7 @@ class Play{
         players[10] = new Player("WR2",700,525);
     }
     if(formation=="split-left"){
-        players[5] = new Player("QB",425,515);
+        players[5] = new Player("QB",425,520);
         players[6] = new Player("RB1",385,575);
         players[7] = new Player("RB2",465,575);
         players[8] = new Player("TE1",340,505);
@@ -182,6 +182,15 @@ class Play{
   
   boolean isPlaying(){
       return isPlaying;
+  }
+  
+  void swt(){
+    isEditing = false;
+    isPlaying = true;
+    for (int i = 0 ; i < 11 ; i++){
+        players[i].setX(players[i].getXco(0));
+        players[i].setY(players[i].getYco(0));
+    }
   }
 
   void Pressed() {
@@ -220,19 +229,6 @@ class Play{
   }
   
   
-  void setup(){}
-  
-  boolean doIPlayNow(){
-     if(key==ENTER){
-        isPlaying=true;
-        isEditing=false;
-        return true;
-     }
-     isPlaying=false;
-     isEditing=true;
-     return false;
-  } 
-  
   void draw(){
     for (int i = 0 ; i < 11 ; i++){
       if (isPlaying){
@@ -247,9 +243,6 @@ class Play{
   void run(){
     for (int i = 0 ; i < 11 ; i++){
       players[i].run();
-    }
-    if(!isDone){
-        run();
     }
   }
   

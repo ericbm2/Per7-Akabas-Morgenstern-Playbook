@@ -1,6 +1,8 @@
 boolean locked;
 boolean isIntro = true;
 boolean isMenu = false;
+boolean isDone = false;
+ArrayList<Play> plays;
 Play p;
 
 void setup(){
@@ -23,10 +25,8 @@ void intro(){
     rect(300,200,250,250);
     c = color(0,0,0);
     fill(c);
-    text("this is the intro", 350,350);
-    text("put instructions here.....", 350,370);
-
-    text("press b to begin", 350,390);
+    text("This is the intro", 350,350);
+    text("Press b to begin", 350,430);
     
     if (keyPressed && key == 'b') {
       
@@ -36,29 +36,130 @@ void intro(){
     }
 }
 
+void endMenu(){
+  isIntro = false;
+  isMenu = false;
+  background(0,200,0); 
+}
+
 void menu(){
   color c = color(0,0,0);
   fill(c);
   noStroke();
-  rect(205,155,400,400);
+  rect(205,205,400,450);
   c = color(100,100,100);
   fill(c);
   noStroke();
-  rect(200,150,400,400);
+  rect(200,200,400,450);
   c = color(0,0,0);
   fill(c);
-  text("this is the menu", 300,300);
-  text("Press h for shotgun", 300, 320);
-  if (keyPressed && key == 'h') {
-      isIntro = false;
-      isMenu = false;
+  text("This is the menu", 300,240);
+  text("Press a for shotgun-right", 300, 280);
+  text("Press t for shotgun-left", 300, 300);
+  text("Press c for iform-right", 300, 320);
+  text("Press d for iform-left", 300, 340);
+  text("Press e for singleback", 300, 360);
+  text("Press f for trips-right", 300, 380);
+  text("Press g for trips-left", 300, 400);
+  text("Press h for strong-i", 300, 420);
+  text("Press i for weak-i", 300, 440);
+  text("Press j for pistol-right", 300, 460);
+  text("Press k for pistol-left", 300, 480);
+  text("Press l for empty-right", 300, 500);
+  text("Press m for empty-left", 300, 520);
+  text("Press n for goalline-right", 300, 540);
+  text("Press o for goalline-left", 300, 560);
+  text("Press p for singleback-spread", 300, 580);
+  text("Press q for split-right", 300, 600);
+  text("Press r for split-left", 300, 620);
+  text("Press s for fullhouse", 300, 640);
+  if (keyPressed && key == 'a') {
+      endMenu();
       p.setFormation("shotgun-right");
-      background(0,200,0);    
+  }
+  else if (keyPressed && key == 't') {
+      endMenu();
+      p.setFormation("shotgun-left");
+  }
+  else if (keyPressed && key == 'c') {
+      endMenu();
+      p.setFormation("iform-right");
+  }
+  else if (keyPressed && key == 'd') {
+      endMenu();
+      p.setFormation("iform-left");
+  }
+  else if (keyPressed && key == 'e') {
+      endMenu();
+      p.setFormation("singleback");
+  }
+  else if (keyPressed && key == 'f') {
+      endMenu();
+      p.setFormation("trips-right");
+  }
+  else if (keyPressed && key == 'g') {
+      endMenu();
+      p.setFormation("trips-left");
+  }
+  else if (keyPressed && key == 'h') {
+      endMenu();
+      p.setFormation("strong-i");
+  }
+  else if (keyPressed && key == 'i') {
+      endMenu();
+      p.setFormation("weak-i");
+  }
+  else if (keyPressed && key == 'j') {
+      endMenu();
+      p.setFormation("pistol-right");
+  }
+  else if (keyPressed && key == 'k') {
+      endMenu();
+      p.setFormation("pistol-left");
+  }
+  else if (keyPressed && key == 'l') {
+      endMenu();
+      p.setFormation("empty-right");
+  }
+  else if (keyPressed && key == 'm') {
+      endMenu();
+      p.setFormation("empty-left");
+  }
+  else if (keyPressed && key == 'n') {
+      endMenu();
+      p.setFormation("goalline-right");
+  }
+  else if (keyPressed && key == 'o') {
+      endMenu();
+      p.setFormation("goalline-left");
+  }
+  else if (keyPressed && key == 'p') {
+      endMenu();
+      p.setFormation("singleback-spread");
+  }
+  else if (keyPressed && key == 'q') {
+      endMenu();
+      p.setFormation("split-right");
+  }
+  else if (keyPressed && key == 'r') {
+      endMenu();
+      p.setFormation("split-right");
+  }
+  else if (keyPressed && key == 's') {
+      endMenu();
+      p.setFormation("fullhouse");
   }
 
 }
 
 void draw(){
+  if (p.isPlaying()){
+    background(0,200,0);
+  }
+  else {
+    text("Press 'x' when you are done editing your play.", 20, 20);
+  }
+  
   stroke(255);
   line(50,50,50,650);
   line(800,50,800,650);
@@ -145,23 +246,37 @@ void draw(){
   b.setup();
   b.draw(425,500);
   
-  if (p.doIPlayNow()){
-    p.run();
+  if (keyPressed && key == 'x' && !(p.isPlaying())){
+      p.swt();
+  }   
+  
+  if (p.isPlaying()){
+     p.run();
+     p.draw();
   }
   
-  if (mousePressed && !(locked)){
-      p.Pressed();
-      locked = true;
-  }
-  else if (mousePressed && locked){
-      p.Dragged();
-  }
-  else if (locked && !(mousePressed)){
-      p.Released();
-      locked = false;
-  }
-  else {
-      p.draw();
+ if (p.isEditing()){
+     if (mousePressed && !(locked)){
+          p.Pressed();
+          locked = true;
+      }
+      else if (mousePressed && locked){
+          p.Dragged();
+      }
+      else if (locked && !(mousePressed)){
+          p.Released();
+          locked = false;
+      }
+      else {
+         p.draw();
+      }
+ }
+
+  if(isDone){
+     setup();
+     isIntro=true;
+     isMenu=false; 
+     plays.add(p);
   }
   
   if (isIntro){
