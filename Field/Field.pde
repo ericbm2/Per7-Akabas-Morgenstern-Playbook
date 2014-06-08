@@ -2,6 +2,7 @@ boolean locked;
 boolean isIntro = true;
 boolean isMenu = false;
 boolean isDone = false;
+boolean isOld = false;
 ArrayList<Play> plays;
 Play p;
 
@@ -12,6 +13,7 @@ void setup(){
  background(0,200,0);
  p = new Play("First play");
  p.setFormation("shotgun-right");
+ plays = new ArrayList<Play>();
 }
 
 void intro(){
@@ -39,9 +41,38 @@ void intro(){
 void endMenu(){
   isIntro = false;
   isMenu = false;
+  isOld=false;
   background(0,200,0); 
 }
-
+void old(){
+  color c = color(0,0,0);
+  fill(c);
+  noStroke();
+  rect(205,205,400,450);
+  c = color(100,100,100);
+  fill(c);
+  noStroke();
+  rect(200,200,400,450);
+  c = color(0,0,0);
+  fill(c);
+  text("This is the old play menu",300,220);
+  int place=250;
+  int ascii=97;
+  for(int i=0;i<plays.size();i++){
+      text("Press "+(char)(ascii+i)+" for Play "+(i+1)+": "+plays.get(i).getName(),300,place+(20*i));
+  }
+  if(keyPressed){
+     try{
+        p=plays.get((int)key);
+     }
+     catch(Exception e){}
+  }
+  isOld=false;
+  p.isPlaying=true;
+  isIntro=false;
+  isMenu=false;
+  p.setFormation(p.getFormation());
+}
 void menu(){
   color c = color(0,0,0);
   fill(c);
@@ -53,93 +84,90 @@ void menu(){
   rect(200,200,400,450);
   c = color(0,0,0);
   fill(c);
-  text("This is the menu", 300,240);
-  text("Press a for shotgun-right", 300, 280);
-  text("Press t for shotgun-left", 300, 300);
-  text("Press c for iform-right", 300, 320);
-  text("Press d for iform-left", 300, 340);
-  text("Press e for singleback", 300, 360);
-  text("Press f for trips-right", 300, 380);
-  text("Press g for trips-left", 300, 400);
-  text("Press h for strong-i", 300, 420);
-  text("Press i for weak-i", 300, 440);
-  text("Press j for pistol-right", 300, 460);
-  text("Press k for pistol-left", 300, 480);
-  text("Press l for empty-right", 300, 500);
-  text("Press m for empty-left", 300, 520);
-  text("Press n for goalline-right", 300, 540);
-  text("Press o for goalline-left", 300, 560);
-  text("Press p for singleback-spread", 300, 580);
-  text("Press q for split-right", 300, 600);
-  text("Press r for split-left", 300, 620);
-  text("Press s for fullhouse", 300, 640);
+  text("This is the menu", 300,220);
+  text("Press a for shotgun-right", 300, 250);
+  text("Press c for shotgun-left", 300, 270);
+  text("Press d for iform-right", 300, 290);
+  text("Press e for iform-left", 300, 310);
+  text("Press f for singleback", 300, 330);
+  text("Press g for trips-right", 300, 350);
+  text("Press h for trips-left", 300, 370);
+  text("Press i for strong-i", 300, 390);
+  text("Press j for weak-i", 300, 410);
+  text("Press k for pistol-right", 300, 430);
+  text("Press l for pistol-left", 300, 450);
+  text("Press m for empty-right", 300, 470);
+  text("Press n for empty-left", 300, 490);
+  text("Press o for goalline-right", 300, 510);
+  text("Press p for goalline-left", 300, 530);
+  text("Press q for singleback-spread", 300, 550);
+  text("Press r for split-right", 300, 570);
+  text("Press s for split-left", 300, 590);
+  text("Press t for fullhouse", 300, 610);
+  text("Press u for old play",300,630);
   if (keyPressed && key == 'a') {
       endMenu();
       p.setFormation("shotgun-right");
   }
-  else if (keyPressed && key == 't') {
+  else if (keyPressed && key == 'c') {
       endMenu();
       p.setFormation("shotgun-left");
   }
-  else if (keyPressed && key == 'c') {
+  else if (keyPressed && key == 'd') {
       endMenu();
       p.setFormation("iform-right");
   }
-  else if (keyPressed && key == 'd') {
+  else if (keyPressed && key == 'e') {
       endMenu();
       p.setFormation("iform-left");
   }
-  else if (keyPressed && key == 'e') {
+  else if (keyPressed && key == 'f') {
       endMenu();
       p.setFormation("singleback");
   }
-  else if (keyPressed && key == 'f') {
+  else if (keyPressed && key == 'g') {
       endMenu();
       p.setFormation("trips-right");
   }
-  else if (keyPressed && key == 'g') {
+  else if (keyPressed && key == 'h') {
       endMenu();
       p.setFormation("trips-left");
   }
-  else if (keyPressed && key == 'h') {
+  else if (keyPressed && key == 'i') {
       endMenu();
       p.setFormation("strong-i");
   }
-  else if (keyPressed && key == 'i') {
+  else if (keyPressed && key == 'j') {
       endMenu();
       p.setFormation("weak-i");
   }
-  else if (keyPressed && key == 'j') {
+  else if (keyPressed && key == 'k') {
       endMenu();
       p.setFormation("pistol-right");
   }
-  else if (keyPressed && key == 'k') {
+  else if (keyPressed && key == 'l') {
       endMenu();
       p.setFormation("pistol-left");
   }
-  else if (keyPressed && key == 'l') {
+  else if (keyPressed && key == 'm') {
       endMenu();
       p.setFormation("empty-right");
   }
-  else if (keyPressed && key == 'm') {
+  else if (keyPressed && key == 'n') {
       endMenu();
       p.setFormation("empty-left");
   }
-  else if (keyPressed && key == 'n') {
+  else if (keyPressed && key == 'o') {
       endMenu();
       p.setFormation("goalline-right");
   }
-  else if (keyPressed && key == 'o') {
+  else if (keyPressed && key == 'p') {
       endMenu();
       p.setFormation("goalline-left");
   }
-  else if (keyPressed && key == 'p') {
-      endMenu();
-      p.setFormation("singleback-spread");
-  }
   else if (keyPressed && key == 'q') {
       endMenu();
-      p.setFormation("split-right");
+      p.setFormation("singleback-spread");
   }
   else if (keyPressed && key == 'r') {
       endMenu();
@@ -147,7 +175,15 @@ void menu(){
   }
   else if (keyPressed && key == 's') {
       endMenu();
+      p.setFormation("split-right");
+  }
+  else if (keyPressed && key == 't') {
+      endMenu();
       p.setFormation("fullhouse");
+  }
+  else if (keyPressed && key == 'u'){
+    isMenu=false;
+    isOld=true;
   }
 
 }
@@ -272,7 +308,7 @@ void draw(){
       }
  }
 
-  if(isDone){
+  if(p.isDone()){
      setup();
      isIntro=true;
      isMenu=false; 
@@ -286,6 +322,8 @@ void draw(){
   if (isMenu){
       menu();
   }
-
+  if (isOld){
+   old(); 
+  }
 }
 
