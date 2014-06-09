@@ -3,9 +3,14 @@ class Play{
   Player[] players;
   String formation;
   String name;
-  boolean isEditing, isPlaying, locked, isDone;
+  boolean isEditing, isBall, isPlaying, locked, isDone;
   int selected;
-   
+  Ball b;
+  int ballCount;
+  int passed;
+  int received;
+  int receiver;
+  
   Play(String name){
     players = new Player[11];
     this.formation = formation;
@@ -13,10 +18,14 @@ class Play{
     selected = 11;
     isEditing = true;
     isPlaying = false;
+    b = new Ball(425,500);
+    receiver = 11;
+    locked = false;
   }
   
   
   void setFormation(String formation){
+    this.formation = formation;
     players[0] = new Player("LT",375,505);
     players[1] = new Player("LG",400,505);
     players[2] = new Player("C",425,505);
@@ -174,24 +183,148 @@ class Play{
         players[9] = new Player("WR1",150,505);
         players[10] = new Player("WR2",700,505);
     }
+    players[5].setHasBall(true);
   }
   
   boolean isEditing(){
       return isEditing;
   }
   
+  void receiver(){
+      print(receiver);
+  }
+  
   boolean isPlaying(){
       return isPlaying;
   }
   
+  void setIsEditing(boolean bool){
+      isEditing = bool;
+  }
+  
+  void setIsBall(boolean bool){
+      isBall = bool;
+  }
+  
+  void setIsPlaying(boolean bool){
+      isPlaying = bool;
+  }
+  
+  String getFormation(){
+      return formation;
+  }
+  
+  String getName(){
+      return name;
+  }
+  
+  boolean isBall(){
+      return isBall;
+  }
+  
+  boolean isDone(){
+      for (int i = 0 ; i < 11 ; i++){
+          if (players[i].arraypos() < players[i].sized() - 1){
+              return false;
+          }
+      }
+      return true;
+  }
+  
   void swt(){
-    isEditing = false;
-    isPlaying = true;
-    for (int i = 0 ; i < 11 ; i++){
-        players[i].setX(players[i].getXco(0));
-        players[i].setY(players[i].getYco(0));
+    if (receiver != 11){
+      isBall = false;
+      isPlaying = true;
+      int quarterback;
+      if (passed < players[5].sized()){
+          quarterback = passed;
+      }
+      else {
+          quarterback = players[5].sized() - 1;
+      }
+      float xs = (players[receiver].getXco(received) - players[5].getXco(quarterback)) / (60 * (received - passed));
+      float ys = (players[receiver].getYco(received) - players[5].getYco(quarterback)) / (60 * (received - passed));
+      b.setShift(xs,ys);
     }
   }
+  
+  
+  void reset(){
+      for (int i = 0 ; i < 11 ; i++){
+          players[i].setX(players[i].getXco(0));
+          players[i].setY(players[i].getYco(0));
+          players[i].setarraypos(-1);
+      }
+  }
+  
+  void resettoo(){
+    players[5].setHasBall(true);
+    players[receiver].setHasBall(false);
+    for (int i = 0 ; i < 11 ; i++){
+        players[i].setcounter(60);
+    }
+  }
+  
+  void swt1(){
+      isEditing = false;
+      isBall = true;
+      reset();
+  }
+  
+  void ball(){
+      if (isPlaying){
+          if (b.isHad()){
+              for (int i = 0 ; i < 11 ; i ++){
+                  if (players[i].hasBall()){
+                      b.draw(players[i].getX() + 15, players[i].getY());
+                      b.setXY(players[i].getX() + 15, players[i].getY());
+                  }
+              }
+              print(receiver);
+              if (players[receiver].arraypos() >= passed){
+                    players[5].setHasBall(false);
+                    b.setIsHad(false);
+               }
+          }
+          else {
+               b.shifted();
+               b.draw(b.getX(), b.getY());
+               if (players[receiver].arraypos() >= received){
+                    players[receiver].setHasBall(true);
+                    b.setIsHad(true);
+               }      
+          }
+      }
+      if (isBall){
+          for (int i = 0 ; i < 11 ; i++){
+              text(i, players[i].getXco(0) - 2, players[i].getYco(0) - 20);
+          }
+          if (locked && !(keyPressed)){
+              locked = false;
+          }
+          if (keyPressed && receiver == 11 && key != 'x' && !(locked)){
+                String keys = key + "";
+                receiver = Integer.parseInt(keys);
+                print("choice");
+                locked = true;
+          }
+          else if (keyPressed && passed == 0 && key != 'x' && !(locked)){
+              String keys = key + "";
+              passed = Integer.parseInt(keys) - 1;
+              print("passed");
+              locked = true;
+          }
+          else if (keyPressed && received == 0 && key != 'x' && !(locked)){
+              String keys = key + "";
+              received = Integer.parseInt(keys) - 1;
+              print("received");
+              locked = true;
+          }
+      }
+  }
+                        
+                
+         
 
   void Pressed() {
       for (int i = 0 ; i < 11 ; i++){
@@ -216,7 +349,7 @@ class Play{
            Player him = players[selected];
            stroke(117,0,94);
            ellipse(him.getXco(him.sized()-1), him.getYco(him.sized()-1), 12, 12);
-           players[selected].addco((int)(mouseX),(int)(mouseY));
+           players[selected].addco((mouseX),(mouseY));
            players[selected].setColor(255,0,0);
            
       }

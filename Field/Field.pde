@@ -3,7 +3,9 @@ boolean isIntro = true;
 boolean isMenu = false;
 boolean isDone = false;
 boolean isOld = false;
-ArrayList<Play> plays;
+boolean doit = false;
+boolean temp=false;
+ArrayList<Play> plays = new ArrayList<Play>();
 Play p;
 
 void setup(){
@@ -13,10 +15,9 @@ void setup(){
  background(0,200,0);
  p = new Play("First play");
  p.setFormation("shotgun-right");
- plays = new ArrayList<Play>();
 }
 
-void intro(){
+ void intro(){
     color c = color(0,0,0);
     fill(c);
     noStroke();
@@ -42,6 +43,7 @@ void endMenu(){
   isIntro = false;
   isMenu = false;
   isOld=false;
+  isDone=false;
   background(0,200,0); 
 }
 void old(){
@@ -59,19 +61,17 @@ void old(){
   int place=250;
   int ascii=97;
   for(int i=0;i<plays.size();i++){
-      text("Press "+(char)(ascii+i)+" for Play "+(i+1)+": "+plays.get(i).getName(),300,place+(20*i));
+      text("Press "+(char)(ascii+i)+" for Play "+(i+1),300,place+(20*i));
   }
-  if(keyPressed){
-     try{
-        p=plays.get((int)key);
-     }
-     catch(Exception e){}
+  if((keyPressed && key!=(char)117)&&(!temp)){
+       p=plays.get((int)key-97);
+       endMenu();
+       p.reset();
+       p.resettoo();
+       p.setIsEditing(false);
+       p.setIsBall(false);
+       p.setIsPlaying(true);
   }
-  isOld=false;
-  p.isPlaying=true;
-  isIntro=false;
-  isMenu=false;
-  p.setFormation(p.getFormation());
 }
 void menu(){
   color c = color(0,0,0);
@@ -189,12 +189,29 @@ void menu(){
 }
 
 void draw(){
-  if (p.isPlaying()){
+ if (p.isPlaying()){
     background(0,200,0);
   }
-  else {
+  else if (p.isEditing()){
+    color c = color(230,230,230);
+    fill(c);
+    rect(8,8,350,22);
+    c = color(0,0,0);
+    fill(c);
     text("Press 'x' when you are done editing your play.", 20, 20);
   }
+  else if (p.isBall()){
+      color c = color(230,230,230);
+      fill(c);
+      rect(8,8,800,100);
+      c = color(0,0,0);
+      fill(c);
+      text("Press 'z' when you are done setting up the pass.", 20, 20);
+      text("First type the number point where you want the QB to throw the ball.",20,60);
+      text("Then type the number point where you want the WR to recieve the ball (must be within 1 or 2 points of the throw being released)", 20, 80);
+      text("Type the number of the player who should recieve the pass.", 20, 40);
+      
+    }
   
   stroke(255);
   line(50,50,50,650);
@@ -277,21 +294,24 @@ void draw(){
   line(750,95,700,95);
   line(750,80,700,80);
   line(750,65,700,65);
+ 
   
-  Ball b = new Ball(425,500);
-  b.setup();
-  b.draw(425,500);
-  
-  if (keyPressed && key == 'x' && !(p.isPlaying())){
-      p.swt();
+  if (keyPressed && key == 'x' && (p.isEditing() || !(doit))){
+      p.swt1();
   }   
+  if (keyPressed && key == 'z' && p.isBall()){
+      p.swt();
+  }
   
   if (p.isPlaying()){
      p.run();
      p.draw();
   }
   
- if (p.isEditing()){
+  p.ball();
+
+  
+  if (p.isEditing()){
      if (mousePressed && !(locked)){
           p.Pressed();
           locked = true;
@@ -306,13 +326,16 @@ void draw(){
       else {
          p.draw();
       }
- }
+   }
+ 
 
   if(p.isDone()){
-     setup();
-     isIntro=true;
-     isMenu=false; 
-     plays.add(p);
+    plays.add(p);
+    setup();
+    isIntro=true;
+    isMenu=false;
+    p.isDone=false;
+     
   }
   
   if (isIntro){
@@ -326,4 +349,5 @@ void draw(){
    old(); 
   }
 }
+
 

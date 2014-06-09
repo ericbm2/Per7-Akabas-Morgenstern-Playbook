@@ -1,29 +1,29 @@
 class Coordinate{
 
-  int x,y;
+  float x,y;
   
-  Coordinate(int a, int b){
+  Coordinate(float a, float b){
     x = a;
     y = b;
   }
   
-  int getY(){
+ float getY(){
     return y;
   }
   
-  int getX(){
+  float getX(){
     return x;
   }
   
-  void setY(int a){
+  void setY(float a){
     y = a;
   }
     
-  void setX(int b){
+  void setX(float b){
     x = b;
   }
   
-  void setXY(int a, int b){
+  void setXY(float a, float b){
     x = a;
     y = b;
   }
